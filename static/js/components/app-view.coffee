@@ -18,31 +18,35 @@ randomSquare = ->
         dark: getBright(color) < 48
 
 Square = React.createClass
-    getInitialState: ->
-        randomSquare()
 
     render: ->
         square_class = cx
             'square': true
-            'dark': @state.dark
-        <div className={square_class} style={backgroundColor: '#'+@state.color}>
-            {@state.color}
+            'dark': @props.dark
+        <div className={square_class} style={backgroundColor: '#'+@props.color}>
+            {@props.color}
         </div>
 
 RefreshSquare = React.createClass
     render: ->
-        <div className="refresh square" onClick={-> location.reload(true)}>
+        <div className="refresh square" onClick={@props.reload}>
             <i className="fa fa-refresh" />
         </div>
 
+MAX_SQUARES = 200
+
 AppView = React.createClass
     getInitialState: ->
-        squares: [0..400]
+        squares: [0..MAX_SQUARES].map randomSquare
+
+    reload: ->
+        window.scroll(0, 0)
+        @setState @getInitialState()
 
     render: ->
         <div>
             {@state.squares.map Square}
-            <RefreshSquare />
+            <RefreshSquare reload={@reload} />
         </div>
 
 module.exports = AppView
