@@ -1,0 +1,47 @@
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+body
+    font-family: 'Helvetica'
+    line-height: 1em
+
+.square
+    display: inline-block
+    height: 160px
+    padding-top: 75px
+    text-align: center
+    font-size: 26px
+    font-weight: bold
+    color: rgba(#000, 0.15)
+    &.dark
+        color: rgba(#fff, 0.15)
+
+.square
+    width: 100%
+
+@media (min-width: 200px)
+    .square
+        width: 50%
+
+@media (min-width: 400px)
+    .square
+        width: 33.333%
+
+@media (min-width: 600px)
+    .square
+        width: 25%
+
+@media (min-width: 900px)
+    .square
+        width: 16.666%
+
+@media (min-width: 1250px)
+    .square
+        width: 12.5%
+
+@media (min-width: 1500px)
+    .square
+        width: 10%
+
