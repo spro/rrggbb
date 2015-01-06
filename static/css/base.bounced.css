@@ -23,6 +23,17 @@ body {
   color: rgba(255, 255, 255, 0.15);
 }
 
+.square.refresh {
+  background: #f0f0f0;
+}
+
+.square i.fa {
+  line-height: 0;
+  font-size: 40px;
+  position: relative;
+  top: 5px;
+}
+
 .square {
   width: 100%;
 }
