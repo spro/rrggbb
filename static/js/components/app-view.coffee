@@ -29,13 +29,20 @@ Square = React.createClass
             {@state.color}
         </div>
 
+RefreshSquare = React.createClass
+    render: ->
+        <div className="refresh square" onClick={-> location.reload()}>
+            <i className="fa fa-refresh" />
+        </div>
+
 AppView = React.createClass
     getInitialState: ->
-        squares: [0..200]
+        squares: [0..400]
 
     render: ->
         <div>
             {@state.squares.map Square}
+            <RefreshSquare />
         </div>
 
 module.exports = AppView
