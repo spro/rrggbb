@@ -1,6 +1,6 @@
 $ = require 'jquery'
 React = require 'react'
-Squares = require './components/app-view'
+Squares = require './components/squares'
 
 $ ->
     console.log "Welcome to rrggbb."
