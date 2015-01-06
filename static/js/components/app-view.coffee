@@ -29,7 +29,7 @@ Square = React.createClass
 
 RefreshSquare = React.createClass
     render: ->
-        <div className="refresh square" onClick={@props.reload}>
+        <div className="refresh square" onClick={@props.reload} onTouchStart={@props.reload}>
             <i className="fa fa-refresh" />
         </div>
 
