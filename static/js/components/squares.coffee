@@ -7,7 +7,7 @@ getBright = (c) ->
     r = (c >> 16) & 0xff
     g = (c >>  8) & 0xff
     b = (c >>  0) & 0xff
-    bright = Math.max(0.6 * r, g, 0.3 * b)
+    bright = Math.max(0.5 * r, g, 0.3 * b)
 
 randomColor = -> "000000".replace /0/g, ->
   (~~(Math.random() * 16)).toString 16
@@ -16,7 +16,7 @@ randomSquare = ->
     color = randomColor()
     square =
         color: color
-        dark: getBright(color) < 48
+        dark: getBright(color) < 55
 
 Square = React.createClass
 
