@@ -1,4 +1,5 @@
 React = require 'react/addons'
+InfiniteScroll = require('react-infinite-scroll')(React)
 cx = React.addons.classSet
 
 getBright = (c) ->
@@ -33,11 +34,19 @@ RefreshSquare = React.createClass
             <i className="fa fa-refresh" />
         </div>
 
-MAX_SQUARES = 200
+START_SQUARES = 100
+MORE_SQUARES = 10
 
 AppView = React.createClass
     getInitialState: ->
-        squares: [0..MAX_SQUARES].map randomSquare
+        squares: @getSquares START_SQUARES
+
+    getSquares: (n) ->
+        [0..n].map randomSquare
+
+    moreSquares: ->
+        @setState
+            squares: @state.squares.concat @getSquares MORE_SQUARES
 
     reload: ->
         window.scroll(0, 0)
@@ -45,7 +54,13 @@ AppView = React.createClass
 
     render: ->
         <div>
+            <InfiniteScroll
+                pageStart=0
+                loadMore={@moreSquares}
+                hasMore={-> true}
+            >
             {@state.squares.map Square}
+            </InfiniteScroll>
             <RefreshSquare reload={@reload} />
         </div>
 
