@@ -28,12 +28,6 @@ Square = React.createClass
             {@props.color}
         </div>
 
-RefreshSquare = React.createClass
-    render: ->
-        <div className="refresh square" onClick={@props.reload} onTouchStart={@props.reload}>
-            <i className="fa fa-refresh" />
-        </div>
-
 START_SQUARES = 100
 MORE_SQUARES = 10
 
@@ -48,10 +42,6 @@ AppView = React.createClass
         @setState
             squares: @state.squares.concat @getSquares MORE_SQUARES
 
-    reload: ->
-        window.scroll(0, 0)
-        @setState @getInitialState()
-
     render: ->
         <div>
             <InfiniteScroll
@@ -61,7 +51,6 @@ AppView = React.createClass
             >
             {@state.squares.map Square}
             </InfiniteScroll>
-            <RefreshSquare reload={@reload} />
         </div>
 
 module.exports = AppView
