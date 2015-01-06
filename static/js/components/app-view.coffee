@@ -31,7 +31,7 @@ Square = React.createClass
 START_SQUARES = 100
 MORE_SQUARES = 10
 
-AppView = React.createClass
+Squares = React.createClass
     getInitialState: ->
         squares: @getSquares START_SQUARES
 
@@ -53,4 +53,4 @@ AppView = React.createClass
             </InfiniteScroll>
         </div>
 
-module.exports = AppView
+module.exports = Squares
