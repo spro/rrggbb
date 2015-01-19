@@ -1,4 +1,7 @@
 polar = require 'polar'
+async = require 'async'
+Redis = require 'redis'
+redis = Redis.createClient null, null
 
 config =
     DEBUG: false
@@ -6,6 +9,8 @@ config =
 
 app = polar.setup_app
     port: config.port
+    use_sessions: true
+    session_secret: 'rrggbb112233'
     metaserve: compilers:
         'css\/(.*)\.css': [
             require('metaserve/src/compilers/raw/bouncer')
@@ -26,6 +31,28 @@ app = polar.setup_app
 app.get '/', (req, res) ->
     res.render 'base'
 
+app.get '/tags.json', (req, res) ->
+    console.log req.session.id
+    redis.keys "tags:#{req.session.id}:*", (err, tag_keys) ->
+        console.log 'tag_keys', tag_keys
+        tasks = {}
+        tag_keys.map (tk) ->
+            color = tk.split(':')[2]
+            tasks[color] = (cb) ->
+                redis.smembers tk, cb
+        async.parallel tasks, (err, tags) ->
+            res.json tags
+
+app.post '/tags/:color', (req, res) ->
+    saveTag req.params.color, req.body.name, req.session.id, (err, ok) ->
+        res.end 'ok'
+
+saveTag = (color, tag, session_id, cb) ->
+    # Save to session's color list
+    redis.sadd "tags:#{session_id}:#{color}", tag, (err, ok) ->
+        # Save to global color list
+        redis.sadd "tags:global:#{color}", tag, (err, ok) ->
+            cb err, ok
 
 app.start()
 
