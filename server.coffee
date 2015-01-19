@@ -1,5 +1,4 @@
 polar = require 'polar'
-favicon = require './favicon'
 
 config =
     DEBUG: false
@@ -27,9 +26,6 @@ app = polar.setup_app
 app.get '/', (req, res) ->
     res.render 'base'
 
-app.get '/favicon.png', (req, res) ->
-    size = if req.query.size? then parseInt req.query.size else 16
-    favicon(size).pipe(res)
 
 app.start()
 
